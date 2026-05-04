@@ -1,6 +1,6 @@
 namespace project_carRental
 {
-    public class Program
+    public class Program//bbl bandit was here
     {
         public static void Main(string[] args)
         {
@@ -15,7 +15,6 @@ namespace project_carRental
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
