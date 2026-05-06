@@ -1,6 +1,6 @@
 namespace project_carRental
 {
-    public class Program//bbl bandit was here
+    public class Program//
     {
         public static void Main(string[] args)
         {
