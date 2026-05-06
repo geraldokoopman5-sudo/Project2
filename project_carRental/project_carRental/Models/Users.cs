@@ -10,7 +10,7 @@ namespace project2.models
 
         public required string email {get ; set ;}
 
-        public required string roll {get;set;}
+        public required string role {get;set;}
 
         public required string status {get;set;}
     }
