@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace VehicleBookingAPI.Models.Entities
+namespace VehicleBookingAPI.DTOs.Booking
 {
-    public class Booking
+    public class UpdateBookingDto
     {
-        [Key]
+        [Required]
         public int BookingId { get; set; }
 
         [Required]
@@ -14,18 +14,16 @@ namespace VehicleBookingAPI.Models.Entities
         [Required]
         public int VehicleId { get; set; }
 
+        [Required]
         public DateTime StartDate { get; set; }
+
+        [Required]
         public DateTime EndDate { get; set; }
 
-        [Column(TypeName = "decimal(10,2)")]
+        [Required]
         public decimal TotalCost { get; set; }
 
-        public string Status { get; set; } = "pending";
-       
-        [ForeignKey("CompanyId")]
-        public User Company { get; set; }
-
-        [ForeignKey("VehicleId")]
-        public Vehicle Vehicle { get; set; } 
+        [Required]
+        public string Status { get; set; }
     }
 }

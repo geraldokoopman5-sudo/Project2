@@ -12,7 +12,7 @@ namespace VehicleBookingAPI.Models.Entities
         public  int PhoneNumber { get; set; }
         public required string Password { get; set; }
         public string Role { get; set; } = string.Empty;
-        public required string Status { get; set; } = string.Empty;
+        public string Status { get; set; } = string.Empty;
         public ICollection<Vehicle> Vehicles { get; set; } = new List<Vehicle>();
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
     }

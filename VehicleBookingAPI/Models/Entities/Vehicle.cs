@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿    using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VehicleBookingAPI.Models.Entities
@@ -27,7 +27,7 @@ namespace VehicleBookingAPI.Models.Entities
 
         public bool Availability { get; set; } = true;
 
-        // Relationships
+        
         [ForeignKey("OwnerId")]
         public User Owner { get; set; }
 
