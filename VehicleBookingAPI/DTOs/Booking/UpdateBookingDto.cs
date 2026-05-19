@@ -21,7 +21,7 @@ namespace VehicleBookingAPI.DTOs.Booking
         public DateTime EndDate { get; set; }
 
         [Required]
-        public decimal TotalCost { get; set; }
+        public decimal TotalCost { get; set; } 
 
         [Required]
         public string Status { get; set; }

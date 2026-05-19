@@ -4,14 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace VehicleBookingAPI.DTOs.Vehicle
 {
     public class UpdateVehicleDto
+   
     {
-        using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace VehicleBookingAPI.DTOs.Vehicle
-    {
-        public class CreateVehicleDto
-        {
             [Key]
             public int VehicleId { get; set; }
 
@@ -34,5 +28,5 @@ namespace VehicleBookingAPI.DTOs.Vehicle
         }
     }
 
-}
-}
+
+

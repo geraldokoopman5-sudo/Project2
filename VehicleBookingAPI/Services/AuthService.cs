@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VehicleBookingAPI.Data;
-using VehicleBookingAPI.DTOs;
 using VehicleBookingAPI.DTOs.Auth;
 using VehicleBookingAPI.Models.Entities;
 
@@ -35,7 +34,17 @@ namespace VehicleBookingAPI.Services
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return "User created successfully";
+            return "User registered successfully";
+        }
+
+        internal async Task GetAllUsers()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal async Task LoginDto(LoginDto dto)
+        {
+            throw new NotImplementedException();
         }
     }
 }
