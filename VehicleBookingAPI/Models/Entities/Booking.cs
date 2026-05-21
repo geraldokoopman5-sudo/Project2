@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using VehicleBookingAPI.Models.Enums;
 
 namespace VehicleBookingAPI.Models.Entities
 {
@@ -20,12 +21,12 @@ namespace VehicleBookingAPI.Models.Entities
         [Column(TypeName = "decimal(10,2)")]
         public decimal TotalCost { get; set; }
 
-        public string Status { get; set; } = "pending";
-       
+        public BookingStatus Status { get; set; } //= BookingStatus.Pending;
+
         [ForeignKey("CompanyId")]
-        public User Company { get; set; }
+        public User Company { get; set; } = null!;
 
         [ForeignKey("VehicleId")]
-        public Vehicle Vehicle { get; set; } 
+        public Vehicle Vehicle { get; set; } = null!;
     }
 }

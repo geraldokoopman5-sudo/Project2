@@ -6,27 +6,27 @@ namespace VehicleBookingAPI.DTOs.Vehicle
     public class UpdateVehicleDto
    
     {
-            [Key]
-            public int VehicleId { get; set; }
+        [Required]
+        public int OwnerId { get; set; }
 
-            [Required]
-            public int OwnerId { get; set; }
+        [MaxLength(100)]
+        public string Make { get; set; } = string.Empty;
 
-            [MaxLength(100)]
-            public string Make { get; set; }
+        [MaxLength(100)]
+        public string Model { get; set; } = string.Empty;
 
-            [MaxLength(100)]
-            public string Model { get; set; }
+        [Range(1900, 2100)]
+        public int Year { get; set; }
 
-            public int Year { get; set; }
+        [MaxLength(50)]
+        public string Category { get; set; } = string.Empty;
 
-            [MaxLength(50)]
-            public string Category { get; set; }
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal DailyRate { get; set; }
 
-            [Column(TypeName = "decimal(10,2)")]
-            public decimal DailyRate { get; set; }
-        }
+        public bool IsAvailable { get; set; }
     }
+}
 
 
 

@@ -25,7 +25,7 @@ namespace VehicleBookingAPI.Models.Entities
         [Column(TypeName = "decimal(10,2)")]
         public decimal DailyRate { get; set; }
 
-        public bool Availability { get; set; } = true;
+        public bool IsAvailabile { get; set; } = true;
 
         
         [ForeignKey("OwnerId")]

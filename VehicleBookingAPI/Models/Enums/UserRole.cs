@@ -1,6 +1,9 @@
 ﻿namespace VehicleBookingAPI.Models.Enums
 {
-    public class UserRole
+    public enum UserRole
     {
+        Company,
+        Vehicle,
+        Admin
     }
 }

@@ -11,9 +11,7 @@ namespace VehicleBookingAPI
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllers();
-
             builder.Services.AddEndpointsApiExplorer();
-
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddDbContext<AppDbContext>(options =>
@@ -33,9 +31,8 @@ namespace VehicleBookingAPI
             }
 
 
-
+            app.UseHttpsRedirection();
             app.MapControllers();
-
             app.Run();
         }
     }

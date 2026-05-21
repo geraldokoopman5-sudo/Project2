@@ -2,10 +2,11 @@
 using VehicleBookingAPI.Data;
 using VehicleBookingAPI.DTOs.Auth;
 using VehicleBookingAPI.Models.Entities;
+using VehicleBookingAPI.Services.Interfaces;
 
 namespace VehicleBookingAPI.Services
 {
-    public class AuthService
+    public class AuthService : IAuthService
     {
         private readonly AppDbContext _context;
 
@@ -28,7 +29,8 @@ namespace VehicleBookingAPI.Services
                 Name = dto.Name,
                 Email = dto.Email,
                 Password = dto.Password,
-                Role = dto.Role
+                Role = dto.Role,
+                Status = "Active"
             };
 
             _context.Users.Add(user);

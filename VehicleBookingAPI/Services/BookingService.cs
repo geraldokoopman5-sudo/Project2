@@ -23,7 +23,7 @@ namespace VehicleBookingAPI.Services
                 return "Vehicle not found";
             }
 
-            if (!vehicle.Availability)
+            if (!vehicle.Available)
             {
                 return "Vehicle is not avaible at this moment";
             }

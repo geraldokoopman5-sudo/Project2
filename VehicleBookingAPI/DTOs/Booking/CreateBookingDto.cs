@@ -5,8 +5,6 @@ namespace VehicleBookingAPI.DTOs.Booking
 {
     public class CreateBookingDto
     {
-        [Required]
-        public int BookingId { get; set; }
 
         [Required]
         public int CompanyId { get; set; }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VehicleBookingAPI.Models.Entities;
+using VehicleBookingAPI.Models.Enums;
 
 namespace VehicleBookingAPI.Data
 {
@@ -21,21 +22,31 @@ namespace VehicleBookingAPI.Data
                 .HasIndex(u => u.Email)
                 .IsUnique();
 
+            modelBuilder.Entity<User>()
+                .Property(u => u.Role)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<Booking>()
+                .Property(b => b.Status)
+                .HasConversion<string>();
+
             modelBuilder.Entity<Vehicle>()
                 .HasOne(v => v.Owner)
                 .WithMany(u => u.Vehicles)
-                .HasForeignKey(v => v.OwnerId);
+                .HasForeignKey(v => v.OwnerId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Booking>()
                 .HasOne(b => b.Company)
                 .WithMany(u => u.Bookings)
-                .HasForeignKey(b => b.CompanyId);
+                .HasForeignKey(b => b.CompanyId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Booking>()
                 .HasOne(b => b.Vehicle)
                 .WithMany(v => v.Bookings)
-                .HasForeignKey(b => b.VehicleId);
+                .HasForeignKey(b => b.VehicleId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
-
 }

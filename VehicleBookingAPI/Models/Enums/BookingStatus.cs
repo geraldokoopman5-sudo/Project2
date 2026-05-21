@@ -1,6 +1,10 @@
 ﻿namespace VehicleBookingAPI.Models.Enums
 {
-    public class BookingStatus
-    {
+    public enum BookingStatus
+    { 
+        Pending,
+        Confirmed,
+        Rejected,
+        Cancelled
     }
 }
