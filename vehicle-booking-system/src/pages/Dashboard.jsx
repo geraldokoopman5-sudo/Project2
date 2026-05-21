@@ -1,13 +1,19 @@
 import Navbar from '../components/Navbar'
+import Sidebar from '../components/Sidebar'
 
 function Dashboard() {
 
   return (
 
     <div>
+      
+  
+      
+      <Navbar open={open} setOpen={setOpen} />
 
-      <Navbar />
-
+      {open && <Sidebar />}
+    
+        
       <div className="p-8">
 
         <h1 className="text-3xl font-bold mb-6">
@@ -55,8 +61,8 @@ function Dashboard() {
         </div>
 
       </div>
-
-    </div>
+</div>
+  
 
   )
 }

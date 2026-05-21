@@ -3,8 +3,10 @@ import Navbar from '../components/Navbar';
 function Admin() {
   return (
     <div>
-      <Navbar />
+    
+      <Navbar open={open} setOpen={setOpen} />
 
+      {open && <Sidebar />}
       <div className="p-8">
         <h1 className="text-3xl font-bold mb-6">
           Admin Review
