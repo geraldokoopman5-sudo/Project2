@@ -20,6 +20,7 @@ function Vehicles({ open, setOpen }) {
   ];
 
   return (
+<<<<<<< HEAD
   <div>
      
       <Navbar open={open} setOpen={setOpen} />
@@ -27,6 +28,15 @@ function Vehicles({ open, setOpen }) {
       {open && <Sidebar />}
  
       <div className={`p-8 transition-all ${open ? 'ml-64' : 'ml-0'}`}>
+=======
+    <div>
+      
+      <Navbar open={open} setOpen={setOpen} />
+
+      {open && <Sidebar />}
+
+      <div className="p-8">
+>>>>>>> 13c9a91e99ba49c59c07d33b2350b65d6ef8d4f8
         <h1 className="text-3xl font-bold mb-6">Vehicles</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
