@@ -1,15 +1,18 @@
 import Navbar from '../components/Navbar';
-
+ 
 function Bookings() {
   return (
     <div>
-      <Navbar />
-
+     
+      <Navbar open={open} setOpen={setOpen} />
+ 
+      {open && <Sidebar />}
+ 
       <div className="p-8">
         <h1 className="text-3xl font-bold mb-6">
           Bookings
         </h1>
-
+ 
         <div className="bg-white p-6 rounded-xl shadow">
           <table className="w-full border-collapse">
             <thead>
@@ -19,7 +22,7 @@ function Bookings() {
                 <th className="text-left font-semibold pb-2">Status</th>
               </tr>
             </thead>
-
+ 
             <tbody>
               <tr className="border-t">
                 <td className="py-2">Toyota Corolla</td>
@@ -33,5 +36,5 @@ function Bookings() {
     </div>
   );
 }
-
+ 
 export default Bookings;

@@ -1,15 +1,23 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+import { useState } from 'react';
+ 
+import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
+ 
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Vehicles from './pages/Vehicles';
 import Bookings from './pages/Bookings';
 import Admin from './pages/Admin';
-
+ 
 function App() {
+  const [open, setOpen] = useState(false);
+ 
   return (
     <BrowserRouter>
+ 
+ 
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/signup" element={<Signup />} />
@@ -18,8 +26,9 @@ function App() {
         <Route path="/bookings" element={<Bookings />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
+ 
     </BrowserRouter>
   );
 }
-
+ 
 export default App;

@@ -19,9 +19,12 @@ function Vehicles() {
   ];
 
   return (
-    <div>
-      <Navbar />
-
+  <div>
+     
+      <Navbar open={open} setOpen={setOpen} />
+ 
+      {open && <Sidebar />}
+ 
       <div className="p-8">
         <h1 className="text-3xl font-bold mb-6">Vehicles</h1>
 
