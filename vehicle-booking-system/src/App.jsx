@@ -19,12 +19,12 @@ function App() {
  
  
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<Dashboard open={open} setOpen={setOpen} />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/vehicles" element={<Vehicles />} />
-        <Route path="/bookings" element={<Bookings />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/vehicles" element={<Vehicles open={open} setOpen={setOpen} />} />
+        <Route path="/bookings" element={<Bookings open={open} setOpen={setOpen} />} />
+        <Route path="/admin" element={<Admin open={open} setOpen={setOpen} />} />
       </Routes>
  
     </BrowserRouter>

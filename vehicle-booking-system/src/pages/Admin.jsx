@@ -1,6 +1,7 @@
 import Navbar from '../components/Navbar';
+import Sidebar from '../components/Sidebar';
 
-function Admin() {
+function Admin({ open, setOpen }) {
   return (
  <div>
      
@@ -8,7 +9,7 @@ function Admin() {
  
       {open && <Sidebar />}
  
-      <div className="p-8">
+      <div className={`p-8 transition-all ${open ? 'ml-64' : 'ml-0'}`}>
         <h1 className="text-3xl font-bold mb-6">
           Admin Review
         </h1>

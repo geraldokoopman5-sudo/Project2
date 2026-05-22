@@ -1,7 +1,7 @@
 import Navbar from '../components/Navbar'
 import Sidebar from '../components/Sidebar'
  
-function Dashboard() {
+function Dashboard({ open, setOpen }) {
  
   return (
  
@@ -14,7 +14,7 @@ function Dashboard() {
       {open && <Sidebar />}
    
        
-      <div className="p-8">
+      <div className={`p-8 transition-all ${open ? 'ml-64' : 'ml-0'}`}>
  
         <h1 className="text-3xl font-bold mb-6">
           Dashboard
@@ -61,10 +61,10 @@ function Dashboard() {
         </div>
  
       </div>
-</div>
  
+    </div>
  
-  )
+  );
 }
  
-export default Dashboard
+export default Dashboard;

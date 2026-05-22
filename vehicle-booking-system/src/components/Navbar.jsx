@@ -1,38 +1,38 @@
-import Navbar from '../components/Navbar';
- 
-function Admin() {
+import { Link, useNavigate } from "react-router-dom";
+
+function Navbar({ open, setOpen }) {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+
   return (
-    <div>
-   
-      <Navbar open={open} setOpen={setOpen} />
- 
-      {open && <Sidebar />}
-      <div className="p-8">
-        <h1 className="text-3xl font-bold mb-6">
-          Admin Review
-        </h1>
- 
-        <div className="bg-white p-6 rounded-xl shadow">
-          <h2 className="text-xl font-semibold mb-4">
-            Pending Booking
-          </h2>
- 
-          <p>Vehicle: Toyota Corolla</p>
-          <p>Company: ABC Ltd</p>
- 
-          <div className="flex gap-4 mt-6">
-            <button className="bg-green-600 text-white px-4 py-2 rounded-lg">
-              Approve
-            </button>
- 
-            <button className="bg-red-600 text-white px-4 py-2 rounded-lg">
-              Reject
-            </button>
-          </div>
-        </div>
+    <nav className="bg-blue-600 text-white p-4 shadow-lg">
+      <div className="flex items-center justify-between">
+        <button 
+          onClick={() => setOpen(!open)}
+          className="flex flex-col gap-1"
+        >
+          <div className="w-6 h-1 bg-white"></div>
+          <div className="w-6 h-1 bg-white"></div>
+          <div className="w-6 h-1 bg-white"></div>
+        </button>
+        
+        <Link to="/" className="text-2xl font-bold absolute left-1/2 transform -translate-x-1/2">
+          Vehicle Booking
+        </Link>
+        
+        <button 
+          onClick={handleLogout}
+          className="px-4 py-2 rounded-lg hover:bg-black-700"
+        >
+          Logout
+        </button>
       </div>
-    </div>
+    </nav>
   );
 }
- 
-export default Admin;
+
+export default Navbar;

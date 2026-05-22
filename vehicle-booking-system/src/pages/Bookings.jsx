@@ -1,6 +1,7 @@
 import Navbar from '../components/Navbar';
+import Sidebar from '../components/Sidebar';
  
-function Bookings() {
+function Bookings({ open, setOpen }) {
   return (
     <div>
      
@@ -8,7 +9,7 @@ function Bookings() {
  
       {open && <Sidebar />}
  
-      <div className="p-8">
+      <div className={`p-8 transition-all ${open ? 'ml-64' : 'ml-0'}`}>
         <h1 className="text-3xl font-bold mb-6">
           Bookings
         </h1>

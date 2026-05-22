@@ -1,6 +1,7 @@
 import Navbar from '../components/Navbar';
+import Sidebar from '../components/Sidebar';
 
-function Vehicles() {
+function Vehicles({ open, setOpen }) {
   const vehicles = [
     {
       id: 1,
@@ -25,7 +26,7 @@ function Vehicles() {
  
       {open && <Sidebar />}
  
-      <div className="p-8">
+      <div className={`p-8 transition-all ${open ? 'ml-64' : 'ml-0'}`}>
         <h1 className="text-3xl font-bold mb-6">Vehicles</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
