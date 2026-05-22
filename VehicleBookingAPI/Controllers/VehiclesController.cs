@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using VehicleBookingAPI.DTOs.Vehicle;
-using VehicleBookingAPI.Services;
+using VehicleBookingAPI.Services.Interfaces;
 
 namespace VehicleBookingAPI.Controllers
 {
@@ -9,26 +8,56 @@ namespace VehicleBookingAPI.Controllers
     [ApiController]
     public class VehiclesController : ControllerBase
     {
-        private readonly VehicleService _vehicleService;
+        private readonly IVehicleService _vehicleService;
 
-        public VehiclesController(VehicleService vehiclesService)
+        public VehiclesController(IVehicleService vehicleService)
         {
-            _vehicleService = vehiclesService;
+            _vehicleService = vehicleService;
         }
 
         [HttpGet]
-        public async Task<IActionResult>GetVehicles()
+        public async Task<IActionResult> GetAvailableVehicles()
         {
-            var vehicles = await _vehicleService.GetAvailableVehicles();
-
+            var vehicles = await _vehicleService.GetAvailableVehiclesAsync();
             return Ok(vehicles);
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetVehicleById(int id)
+        {
+            var vehicle = await _vehicleService.GetVehicleByIdAsync(id);
+            if (vehicle == null) return NotFound("Vehicle not found.");
+            return Ok(vehicle);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddVehicle(CreateVehicleDto dto)
         {
-            var vehicle = await _vehicleService.AddVehicle(dto);
+            var vehicle = await _vehicleService.AddVehicleAsync(dto);
+            return CreatedAtAction(nameof(GetVehicleById), new { id = vehicle.VehicleId }, vehicle);
+        }
 
-            return Ok(vehicle);
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateVehicle(int id, UpdateVehicleDto dto)
+        {
+            var success = await _vehicleService.UpdateVehicleAsync(id, dto);
+            if (!success) return NotFound("Vehicle not found.");
+            return Ok("Vehicle updated successfully.");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteVehicle(int id)
+        {
+            try
+            {
+                var success = await _vehicleService.DeleteVehicleAsync(id);
+                if (!success) return NotFound("Vehicle not found.");
+                return Ok("Vehicle deleted successfully.");
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
         }
     }
 }

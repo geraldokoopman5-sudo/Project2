@@ -16,4 +16,4 @@ namespace VehicleBookingAPI.DTOs.Booking
         public BookingStatus Status { get; set; }
     }
 }
-}
+

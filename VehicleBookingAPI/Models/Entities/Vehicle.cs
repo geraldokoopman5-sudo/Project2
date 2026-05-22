@@ -32,6 +32,7 @@ namespace VehicleBookingAPI.Models.Entities
         public User Owner { get; set; }
 
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+        public bool IsAvailable { get; internal set; }
     }
 }
 

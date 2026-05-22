@@ -1,8 +1,8 @@
 ﻿namespace VehicleBookingAPI.Helpers
 {
-    public class BookingCalculator
+    public static class BookingCalculator
     {
-        public int CalculateDays(DateTime startDate, DateTime endDate)
+        public static int CalculateDays(DateTime startDate, DateTime endDate)
         {
             int days = (endDate.Date - startDate.Date).Days;
             return Math.Max(days, 1);

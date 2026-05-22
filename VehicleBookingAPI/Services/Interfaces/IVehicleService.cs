@@ -9,5 +9,7 @@ namespace VehicleBookingAPI.Services.Interfaces
         Task<VehicleResponseDto?> GetVehicleByIdAsync(int id);
         Task<VehicleResponseDto> AddVehicleAsync(CreateVehicleDto dto);
         Task<bool> UpdateVehicleAsync(int id, UpdateVehicleDto dto);
+        Task<bool> DeleteVehicleAsync(int id);
     }
 }
+
