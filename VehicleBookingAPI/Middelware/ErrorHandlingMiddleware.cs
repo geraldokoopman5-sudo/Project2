@@ -45,3 +45,5 @@ namespace VehicleBookingAPI.Middelware
         }
     }
 }
+
+// put this middleware into chat, it will not work.

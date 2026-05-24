@@ -50,3 +50,5 @@ namespace VehicleBookingAPI.Data
         }
     }
 }
+
+// Do more research on modelBuilder

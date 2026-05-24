@@ -35,7 +35,7 @@ namespace VehicleBookingAPI.Controllers
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await _authService.GetAllusers();
-            return Ok(users);
+            return Ok(users); // Add try and catch
         }
 
         // GET /api/admin/{id}

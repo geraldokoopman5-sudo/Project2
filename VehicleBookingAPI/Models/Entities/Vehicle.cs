@@ -6,10 +6,10 @@ namespace VehicleBookingAPI.Models.Entities
     public class Vehicle
     {
         [Key]
-        public int VehicleId { get; set; }
+        public int VehicleId { get; set; } // Guid
 
         [Required]
-        public int OwnerId { get; set; }
+        public int OwnerId { get; set; } // Guid
 
         [MaxLength(100)]
         public string Make { get; set; }
@@ -17,10 +17,10 @@ namespace VehicleBookingAPI.Models.Entities
         [MaxLength(100)]
         public string Model { get; set; }
 
-        public int Year { get; set; }
+        public int Year { get; set; } // DateTime.Year
 
         [MaxLength(50)]
-        public string Category { get; set; }
+        public string Category { get; set; } // Integer
 
         [Column(TypeName = "decimal(10,2)")]
         public decimal DailyRate { get; set; }

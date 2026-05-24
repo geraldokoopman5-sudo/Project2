@@ -30,7 +30,7 @@ namespace VehicleBookingAPI.Services
                 PhoneNumber = dto.PhoneNumber,
                 Role = dto.Role,
                 Status = "Active"
-            };
+            }; // Use a mapper to make this cleaner
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
@@ -42,10 +42,10 @@ namespace VehicleBookingAPI.Services
         public async Task<User?> Login(LoginDto dto)
         {
             return await _context.Users
-                .FirstOrDefaultAsync(u => u.Email == dto.Email && u.Password == dto.Password);
+                .FirstOrDefaultAsync(u => u.Email == dto.Email && u.Password == dto.Password); // Incomplete -> Do proper hashing and salting with .NET identity or raw bcrypt passwords & tokens
         }
 
-        public async Task<List<User>> GetAllUsers()
+        public async Task<List<User>> GetAllUsers() // Return a DTO, you don 't want to expose all user details in a real app
         {
             return await _context.Users.ToListAsync();
         }
@@ -55,7 +55,7 @@ namespace VehicleBookingAPI.Services
             return await _context.Users.FindAsync(id);
         }
 
-        public async Task<bool> UpdateUser(int id, RegisterDto dto)
+        public async Task<bool> UpdateUser(int id, RegisterDto dto) // Either dont return anything or return a response DTO
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null) return false;
@@ -69,11 +69,11 @@ namespace VehicleBookingAPI.Services
             user.PhoneNumber = dto.PhoneNumber;
             user.Role = dto.Role;
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(); // Logic can be refactored 
             return true;
         }
 
-        public async Task<bool> DeleteUser(int id)
+        public async Task<bool> DeleteUser(int id) // DONT RETURN A BOOLEAN, THROW EXCEPTIONS OR RETURN A RESPONSE DTO
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null) return false;
@@ -83,7 +83,7 @@ namespace VehicleBookingAPI.Services
             return true;
         }
 
-        Task<List<User>> IAuthService.GetAllusers()
+        Task<List<User>> IAuthService.GetAllusers() // Use DTO
         {
             throw new NotImplementedException();
         }
