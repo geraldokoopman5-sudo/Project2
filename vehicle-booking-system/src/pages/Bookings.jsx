@@ -5,7 +5,7 @@ function Bookings({ open, setOpen }) {
   return (
     <div>
      
-      <Navbar open={open} setOpen={setOpen} />
+     
  
       {open && <Sidebar />}
  
