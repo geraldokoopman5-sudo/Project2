@@ -8,7 +8,6 @@ function Vehicles({ open, setOpen }) {
   const navigate = useNavigate();
   const vehicles = [
     {
-      
       id: 1,
       make: 'Toyota',
       model: 'Corolla',
@@ -28,9 +27,8 @@ function Vehicles({ open, setOpen }) {
   return (
     <div>
      
-    
- 
-      {open && <Sidebar />}
+      <Navbar open={open} setOpen={setOpen} />
+  {open && <Sidebar />}
  
       <div className={`p-8 transition-all ${open ? 'ml-64' : 'ml-0'}`}>
         <h1 className="text-3xl font-bold mb-6">Vehicles</h1>
@@ -58,7 +56,7 @@ function Vehicles({ open, setOpen }) {
               
             <button
   className="bg-blue-600 text-white px-4 py-2 rounded"
-  onClick={() => navigate(`/details/${vehicle.id}`)}
+  onClick={() => navigate(`/Details/${vehicle.id}`)}
 >
   View Details
 </button>
