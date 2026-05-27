@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using VehicleBookingAPI.Data;
+﻿using Microsoft.AspNetCore.Mvc;
 using VehicleBookingAPI.DTOs.Auth;
-using VehicleBookingAPI.Models.Entities;
+using VehicleBookingAPI.Services.Interfaces;
 
 namespace VehicleBookingAPI.Controllers
 {
@@ -12,100 +8,63 @@ namespace VehicleBookingAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IAuthService _authService;
 
-        public UsersController(AppDbContext context)
+        public UsersController(IAuthService authService)
         {
-            _context = context;
+            _authService = authService;
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateUser(RegisterDto dto)
         {
-            var emailExist = await _context.Users.AnyAsync(u => u.Email == dto.Email);
-
-            if (emailExist)
+            try
             {
-                return BadRequest("Email already exist");
+                var result = await _authService.Register(dto);
+                return Ok(new { message = result });
             }
-
-            var user = new User
+            catch (Exception ex)
             {
-                Name = dto.Name,
-                Email = dto.Email,
-                Password = dto.Password,
-                Role = dto.Role,
-                Status = "Active"
+                return BadRequest(new { message = ex.Message });
+            }
+        }
 
-            };
-
-            _context.Users.Add(user);
-
-            await _context.SaveChangesAsync();
-
-            return Ok(user);
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await _authService.GetAllUsers();
+            return Ok(users);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(int id)
+        public async Task<IActionResult> GetUserById(Guid id)
         {
-            var user = await _context.Users.FindAsync(id);
-
-            if (user == null)
-            {
-                return NotFound("User not found");
-            }
-
-
-
+            var user = await _authService.GetUserById(id);
+            if (user == null) return NotFound("User not found.");
             return Ok(user);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUserById(int id, RegisterDto dto)
+        public async Task<IActionResult> UpdateUser(Guid id, UpdateUserDto dto)
         {
-            var user = await _context.Users.FindAsync(id);
-
-            if (user == null)
+            try
             {
-                return NotFound("User not found");
+                var updated = await _authService.UpdateUser(id, dto);
+                if (updated == null) return NotFound("User not found.");
+                return Ok(updated);
             }
-
-            var emailExist = await _context.Users
-                .AnyAsync(u => u.Email == dto.Email && u.Id != id);
-
-            if (emailExist)
+            catch (InvalidOperationException ex)
             {
-                return BadRequest("Email already exists");
+                return BadRequest(new { message = ex.Message });
             }
-
-            user.Name = dto.Name;
-            user.Email = dto.Email;
-            user.PhoneNumber = dto.PhoneNumber;
-            user.Role = dto.Role;
-
-            await _context.SaveChangesAsync();
-
-            return Ok(user);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(Guid id)
         {
-            var user = await _context.Users.FindAsync(id);
-
-            if (user == null)
-            {
-                return NotFound("User not found.");
-            }
-
-            _context.Users.Remove(user);
-
-            await _context.SaveChangesAsync();
-
-            return Ok("User deleted successfully.");
+            var deleted = await _authService.DeleteUser(id);
+            if (deleted == null) return NotFound("User not found.");
+            return Ok(new { message = "User deleted successfully.", user = deleted });
         }
-
-
     }
 }

@@ -1,31 +1,26 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using VehicleBookingAPI.Models.Enums;
 
-
 namespace VehicleBookingAPI.DTOs.Auth
 {
-    public class RegisterDto
+    public class UpdateUserDto
     {
-        // Add Validations
         [Required]
         [MaxLength(100)]
         public string Name { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(100)]
         [EmailAddress]
+        [MaxLength(100)]
         public string Email { get; set; } = string.Empty;
 
-        [Required]
-        [MaxLength(100)]
-        public string Password { get; set; } = string.Empty;
-
-        [Required]
-        [MaxLength(10)]
+        [MaxLength(20)]
         public string PhoneNumber { get; set; } = string.Empty;
 
-        public UserRole Role { get; set; } 
-    
-        
+        [Required]
+        public UserRole Role { get; set; }
+
+        [Required]
+        public UserStatus Status { get; set; }
     }
 }

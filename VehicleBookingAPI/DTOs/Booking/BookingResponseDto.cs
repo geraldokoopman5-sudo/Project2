@@ -4,10 +4,10 @@ namespace VehicleBookingAPI.DTOs.Booking
 {
     public class BookingResponseDto
     {
-        public int BookingId { get; set; }
-        public int CompanyId { get; set; }
+        public Guid BookingId { get; set; }
+        public Guid CompanyId { get; set; }
         public string CompanyName { get; set; } = string.Empty;
-        public int VehicleId { get; set; }
+        public Guid VehicleId { get; set; }
         public string VehicleMakeModel { get; set; } = string.Empty;
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -16,4 +16,3 @@ namespace VehicleBookingAPI.DTOs.Booking
         public BookingStatus Status { get; set; }
     }
 }
-

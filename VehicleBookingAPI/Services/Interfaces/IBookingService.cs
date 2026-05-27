@@ -7,8 +7,8 @@ namespace VehicleBookingAPI.Services.Interfaces
     {
         Task<BookingResponseDto?> CreateBookingAsync(CreateBookingDto dto);
         Task<List<BookingResponseDto>> GetAllBookingAsync();
-        Task<BookingResponseDto?> GetBookingByIdAsync(int id);
-        Task<bool> UpdateBookingStatusAsync(int id, BookingStatus status);
-        Task<bool>DeleteBookingAsync(int id);
+        Task<BookingResponseDto?> GetBookingByIdAsync(Guid id);
+        Task<bool> UpdateBookingStatusAsync(Guid id, BookingStatus status);
+        Task<bool> DeleteBookingAsync(Guid id);
     }
 }

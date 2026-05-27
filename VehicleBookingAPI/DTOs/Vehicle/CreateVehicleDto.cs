@@ -5,9 +5,8 @@ namespace VehicleBookingAPI.DTOs.Vehicle
 {
     public class CreateVehicleDto
     {
-
         [Required]
-        public int OwnerId { get; set; }
+        public Guid OwnerId { get; set; }
 
         [Required]
         [MaxLength(100)]

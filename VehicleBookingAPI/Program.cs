@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using VehicleBookingAPI.Data;
+using VehicleBookingAPI.Middelware;
 using VehicleBookingAPI.Services;
 using VehicleBookingAPI.Services.Interfaces;
 
@@ -24,12 +25,20 @@ namespace VehicleBookingAPI
 
             var app = builder.Build();
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                SeedData.Initialize(db);
+            }
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
+            app.UseMiddleware<RequestLoggingMiddleware>();
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseHttpsRedirection();
             app.MapControllers();
             app.Run();

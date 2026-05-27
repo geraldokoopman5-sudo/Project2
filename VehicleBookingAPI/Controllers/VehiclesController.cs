@@ -23,7 +23,7 @@ namespace VehicleBookingAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetVehicleById(int id)
+        public async Task<IActionResult> GetVehicleById(Guid id)
         {
             var vehicle = await _vehicleService.GetVehicleByIdAsync(id);
             if (vehicle == null) return NotFound("Vehicle not found.");
@@ -38,7 +38,7 @@ namespace VehicleBookingAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateVehicle(int id, UpdateVehicleDto dto)
+        public async Task<IActionResult> UpdateVehicle(Guid id, UpdateVehicleDto dto)
         {
             var success = await _vehicleService.UpdateVehicleAsync(id, dto);
             if (!success) return NotFound("Vehicle not found.");
@@ -46,7 +46,7 @@ namespace VehicleBookingAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteVehicle(int id)
+        public async Task<IActionResult> DeleteVehicle(Guid id)
         {
             try
             {

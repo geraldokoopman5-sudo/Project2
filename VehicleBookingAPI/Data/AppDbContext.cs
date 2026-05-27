@@ -26,9 +26,25 @@ namespace VehicleBookingAPI.Data
                 .Property(u => u.Role)
                 .HasConversion<string>();
 
+            modelBuilder.Entity<User>()
+                .Property(u => u.Status)
+                .HasConversion<string>();
+
             modelBuilder.Entity<Booking>()
                 .Property(b => b.Status)
                 .HasConversion<string>();
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Vehicle>()
+                .Property(v => v.VehicleId)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Booking>()
+                .Property(b => b.BookingId)
+                .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<Vehicle>()
                 .HasOne(v => v.Owner)

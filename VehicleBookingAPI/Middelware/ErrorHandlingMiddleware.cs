@@ -15,20 +15,7 @@ namespace VehicleBookingAPI.Middelware
             _logger = logger;
         }
 
-        public async Task InvokeAsync(HttpContext context)
-        {
-            try
-            {
-                await _next(context);
-
-            }
-
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Unhandled exception");
-                //await HandleExceptionAsync(context, ex);
-            }
-        }
+     
 
         private static Task HandleExeptionAsync(HttpContext context, Exception exception)
         {
@@ -42,6 +29,21 @@ namespace VehicleBookingAPI.Middelware
             });
 
             return context.Response.WriteAsync(response);
+        }
+
+        public async Task InvokeAsync(HttpContext context)
+        {
+            try
+            {
+                await _next(context);
+
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Unhandled exception");
+                await HandleExeptionAsync(context, ex);
+            }
         }
     }
 }

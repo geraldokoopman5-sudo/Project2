@@ -1,15 +1,13 @@
-﻿using VehicleBookingAPI.DTOs.Booking;
-using VehicleBookingAPI.DTOs.Vehicle;
+﻿using VehicleBookingAPI.DTOs.Vehicle;
 
 namespace VehicleBookingAPI.Services.Interfaces
 {
     public interface IVehicleService
     {
         Task<List<VehicleResponseDto>> GetAvailableVehiclesAsync();
-        Task<VehicleResponseDto?> GetVehicleByIdAsync(int id);
+        Task<VehicleResponseDto?> GetVehicleByIdAsync(Guid id);
         Task<VehicleResponseDto> AddVehicleAsync(CreateVehicleDto dto);
-        Task<bool> UpdateVehicleAsync(int id, UpdateVehicleDto dto);
-        Task<bool> DeleteVehicleAsync(int id);
+        Task<bool> UpdateVehicleAsync(Guid id, UpdateVehicleDto dto);
+        Task<bool> DeleteVehicleAsync(Guid id);
     }
 }
-

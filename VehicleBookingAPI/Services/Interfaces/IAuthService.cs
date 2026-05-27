@@ -1,15 +1,14 @@
 ﻿using VehicleBookingAPI.DTOs.Auth;
-using VehicleBookingAPI.Models.Entities;
 
 namespace VehicleBookingAPI.Services.Interfaces
 {
     public interface IAuthService
     {
         Task<string> Register(RegisterDto dto);
-        Task<User?> Login(LoginDto dto);
-        Task<List<User>> GetAllusers();
-        Task<User?> GetUserById(int id);
-        Task<bool> UpdateUser(int id, RegisterDto dto);
-        Task<bool> DeleteUser(int id);
+        Task<UserResponseDto?> Login(LoginDto dto);
+        Task<List<UserResponseDto>> GetAllUsers();
+        Task<UserResponseDto?> GetUserById(Guid id);
+        Task<UserResponseDto?> UpdateUser(Guid id, UpdateUserDto dto);
+        Task<UserResponseDto?> DeleteUser(Guid id);
     }
 }

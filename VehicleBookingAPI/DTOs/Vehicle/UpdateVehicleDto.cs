@@ -4,10 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace VehicleBookingAPI.DTOs.Vehicle
 {
     public class UpdateVehicleDto
-   
     {
         [Required]
-        public int OwnerId { get; set; }
+        public Guid OwnerId { get; set; }
 
         [MaxLength(100)]
         public string Make { get; set; } = string.Empty;
@@ -27,6 +26,3 @@ namespace VehicleBookingAPI.DTOs.Vehicle
         public bool IsAvailable { get; set; }
     }
 }
-
-
-

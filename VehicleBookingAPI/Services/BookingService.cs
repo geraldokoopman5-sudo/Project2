@@ -37,12 +37,11 @@ namespace VehicleBookingAPI.Services
                 b.VehicleId == dto.VehicleId &&
                 dto.StartDate < b.EndDate &&
                 dto.EndDate > b.StartDate &&
-                b.Status != BookingStatus.Cancelled);  
+                b.Status != BookingStatus.Cancelled);
 
             if (overlapExists)
                 throw new InvalidOperationException("Vehicle is already booked for the selected dates.");
 
-          
             int days = BookingCalculator.CalculateDays(dto.StartDate, dto.EndDate);
             decimal total = BookingCalculator.CalculateTotal(vehicle.DailyRate, days);
 
@@ -62,7 +61,8 @@ namespace VehicleBookingAPI.Services
             return MapToResponseDto(booking, vehicle, days);
         }
 
-        public async Task<List<BookingResponseDto>> GetAllBookingsAsync()
+        // FIX: renamed to match interface, removed the stub
+        public async Task<List<BookingResponseDto>> GetAllBookingAsync()
         {
             var bookings = await _context.Bookings
                 .Include(b => b.Vehicle)
@@ -76,7 +76,8 @@ namespace VehicleBookingAPI.Services
             }).ToList();
         }
 
-        public async Task<BookingResponseDto?> GetBookingByIdAsync(int id)
+        // FIX: int → Guid
+        public async Task<BookingResponseDto?> GetBookingByIdAsync(Guid id)
         {
             var booking = await _context.Bookings
                 .Include(b => b.Vehicle)
@@ -89,7 +90,8 @@ namespace VehicleBookingAPI.Services
             return MapToResponseDto(booking, booking.Vehicle, days);
         }
 
-        public async Task<bool> UpdateBookingStatusAsync(int id, BookingStatus status)
+        // FIX: int → Guid
+        public async Task<bool> UpdateBookingStatusAsync(Guid id, BookingStatus status)
         {
             var booking = await _context.Bookings.FindAsync(id);
             if (booking == null) return false;
@@ -99,8 +101,8 @@ namespace VehicleBookingAPI.Services
             return true;
         }
 
-     
-        public async Task<bool> DeleteBookingAsync(int id)
+        // FIX: int → Guid
+        public async Task<bool> DeleteBookingAsync(Guid id)
         {
             var booking = await _context.Bookings.FindAsync(id);
             if (booking == null) return false;
@@ -114,7 +116,6 @@ namespace VehicleBookingAPI.Services
             return true;
         }
 
-       
         private static BookingResponseDto MapToResponseDto(Booking booking, Vehicle vehicle, int days)
         {
             return new BookingResponseDto
@@ -130,11 +131,6 @@ namespace VehicleBookingAPI.Services
                 TotalCost = booking.TotalCost,
                 Status = booking.Status
             };
-        }
-
-        public Task<List<BookingResponseDto>> GetAllBookingAsync()
-        {
-            throw new NotImplementedException();
         }
     }
 }

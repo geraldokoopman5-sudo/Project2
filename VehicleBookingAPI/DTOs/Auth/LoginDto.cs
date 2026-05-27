@@ -4,7 +4,11 @@ namespace VehicleBookingAPI.DTOs.Auth
 {
     public class LoginDto
     {
-        public string Email { get; set; } = string.Empty; // Also required
+        [EmailAddress]
+        [Required]
+        [MaxLength(100)]
+        public string Email { get; set; } = string.Empty; 
+
         [Required]
         public string Password { get; set; } = string.Empty;
 

@@ -1,4 +1,5 @@
-﻿namespace VehicleBookingAPI.Helpers
+﻿using VehicleBookingAPI.Models.Entities;
+namespace VehicleBookingAPI.Helpers
 {
     public class DateHelper
     {
@@ -6,5 +7,6 @@
         {
            return start1 < end2 && start2 < end1;
         }
+
     }
 }

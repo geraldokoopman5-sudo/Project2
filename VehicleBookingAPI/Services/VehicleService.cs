@@ -26,7 +26,7 @@ namespace VehicleBookingAPI.Services
             return vehicles.Select(MapToResponseDto).ToList();
         }
 
-        public async Task<VehicleResponseDto?> GetVehicleByIdAsync(int id)
+        public async Task<VehicleResponseDto?> GetVehicleByIdAsync(Guid id)
         {
             var vehicle = await _context.Vehicles
                 .Include(v => v.Owner)
@@ -39,13 +39,14 @@ namespace VehicleBookingAPI.Services
         {
             var vehicle = new Vehicle
             {
+                VehicleId = Guid.NewGuid(),
                 OwnerId = dto.OwnerId,
                 Make = dto.Make,
                 Model = dto.Model,
                 Year = dto.Year,
                 Category = dto.Category,
                 DailyRate = dto.DailyRate,
-                IsAvailable = true   
+                IsAvailable = true
             };
 
             _context.Vehicles.Add(vehicle);
@@ -54,7 +55,7 @@ namespace VehicleBookingAPI.Services
             return MapToResponseDto(vehicle);
         }
 
-        public async Task<bool> UpdateVehicleAsync(int id, UpdateVehicleDto dto)
+        public async Task<bool> UpdateVehicleAsync(Guid id, UpdateVehicleDto dto)
         {
             var vehicle = await _context.Vehicles.FindAsync(id);
             if (vehicle == null) return false;
@@ -70,7 +71,7 @@ namespace VehicleBookingAPI.Services
             return true;
         }
 
-        public async Task<bool> DeleteVehicleAsync(int id)
+        public async Task<bool> DeleteVehicleAsync(Guid id)
         {
             var vehicle = await _context.Vehicles.FindAsync(id);
             if (vehicle == null) return false;

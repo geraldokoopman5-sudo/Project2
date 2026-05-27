@@ -16,7 +16,7 @@ namespace VehicleBookingAPI.Controllers
             _bookingService = bookingService;
         }
 
-        [HttpPost]                                           
+        [HttpPost]
         public async Task<IActionResult> CreateBooking(CreateBookingDto dto)
         {
             try
@@ -45,8 +45,8 @@ namespace VehicleBookingAPI.Controllers
             return Ok(bookings);
         }
 
-        [HttpGet("{id}")]                                    
-        public async Task<IActionResult> GetBookingById(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetBookingById(Guid id)
         {
             var booking = await _bookingService.GetBookingByIdAsync(id);
             if (booking == null) return NotFound("Booking not found.");
@@ -54,15 +54,24 @@ namespace VehicleBookingAPI.Controllers
         }
 
         [HttpPut("{id}/approve")]
-        public async Task<IActionResult> ApproveBooking(int id)
+        public async Task<IActionResult> ApproveBooking(Guid id)
         {
             var success = await _bookingService.UpdateBookingStatusAsync(id, BookingStatus.Confirmed);
             if (!success) return NotFound("Booking not found.");
             return Ok(new { message = "Booking confirmed." });
         }
 
+        // FIX: was missing from your controller
+        [HttpPut("{id}/reject")]
+        public async Task<IActionResult> RejectBooking(Guid id)
+        {
+            var success = await _bookingService.UpdateBookingStatusAsync(id, BookingStatus.Rejected);
+            if (!success) return NotFound("Booking not found.");
+            return Ok(new { message = "Booking rejected." });
+        }
+
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBooking(int id)
+        public async Task<IActionResult> DeleteBooking(Guid id)
         {
             try
             {

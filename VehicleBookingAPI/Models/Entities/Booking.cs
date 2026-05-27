@@ -7,13 +7,13 @@ namespace VehicleBookingAPI.Models.Entities
     public class Booking
     {
         [Key]
-        public int BookingId { get; set; } // Make Guid
+        public Guid BookingId { get; set; }
 
         [Required]
-        public int CompanyId { get; set; } // Guid as well
+        public Guid CompanyId { get; set; }
 
         [Required]
-        public int VehicleId { get; set; } // Guid as well
+        public Guid VehicleId { get; set; }
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -24,7 +24,7 @@ namespace VehicleBookingAPI.Models.Entities
         public BookingStatus Status { get; set; } = BookingStatus.Pending;
 
         [ForeignKey("CompanyId")]
-        public User Company { get; set; } = null!; // Rename to Company 
+        public User Company { get; set; } = null!;
 
         [ForeignKey("VehicleId")]
         public Vehicle Vehicle { get; set; } = null!;

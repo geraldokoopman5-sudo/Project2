@@ -6,33 +6,33 @@ namespace VehicleBookingAPI.Models.Entities
     public class Vehicle
     {
         [Key]
-        public int VehicleId { get; set; } // Guid
+        public Guid VehicleId { get; set; }
 
         [Required]
-        public int OwnerId { get; set; } // Guid
+        public Guid OwnerId { get; set; }
 
         [MaxLength(100)]
-        public string Make { get; set; }
+        [Required]
+        public string Make { get; set; } = string.Empty;
 
         [MaxLength(100)]
-        public string Model { get; set; }
+        [Required]
+        public string Model { get; set; } = string.Empty;
 
-        public int Year { get; set; } // DateTime.Year
+        // FIX: was DateTime, Year is a number not a date
+        public int Year { get; set; }
 
         [MaxLength(50)]
-        public string Category { get; set; } // Integer
+        public string Category { get; set; } = string.Empty;
 
         [Column(TypeName = "decimal(10,2)")]
         public decimal DailyRate { get; set; }
 
-        public bool IsAvailabile { get; set; } = true;
+        public bool IsAvailable { get; set; } = true;
 
-        
         [ForeignKey("OwnerId")]
-        public User Owner { get; set; }
+        public User Owner { get; set; } = null!;
 
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
-        public bool IsAvailable { get; internal set; }
     }
 }
-
