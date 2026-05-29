@@ -11,11 +11,11 @@ namespace VehicleBookingAPI.Models.Entities
 
         [Required]
         [MaxLength(100)]
-        public required string Name { get; set; } // Add Validations
+        public required string Name { get; set; } 
 
         [EmailAddress]
         [Required]
-        public string Email { get; set; } = string.Empty; // Add validation for email format
+        public string Email { get; set; } = string.Empty; 
 
         [MaxLength(10)]
         [Required]

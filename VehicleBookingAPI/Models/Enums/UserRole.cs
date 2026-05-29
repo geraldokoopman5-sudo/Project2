@@ -4,6 +4,6 @@
     {
         Company,
         Vehicle,
-        Admin
+        Admin   
     }
 }
