@@ -23,6 +23,16 @@ namespace VehicleBookingAPI
             builder.Services.AddScoped<IBookingService, BookingService>();
             builder.Services.AddScoped<IVehicleService, VehicleService>();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
+
             var app = builder.Build();
 
             using (var scope = app.Services.CreateScope())
@@ -37,9 +47,12 @@ namespace VehicleBookingAPI
                 app.UseSwaggerUI();
             }
 
+            // ✅ CORS MUST BE FIRST - before all other middleware
+            app.UseCors("AllowAll");
+
             app.UseMiddleware<RequestLoggingMiddleware>();
             app.UseMiddleware<ErrorHandlingMiddleware>();
-            app.UseHttpsRedirection();
+
             app.MapControllers();
             app.Run();
         }
