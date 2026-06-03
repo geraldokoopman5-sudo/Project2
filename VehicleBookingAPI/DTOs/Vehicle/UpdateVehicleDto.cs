@@ -24,5 +24,7 @@ namespace VehicleBookingAPI.DTOs.Vehicle
         public decimal DailyRate { get; set; }
 
         public bool IsAvailable { get; set; }
+
+        public string? ImageData { get; set; }
     }
 }

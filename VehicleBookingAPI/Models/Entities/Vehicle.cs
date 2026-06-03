@@ -30,6 +30,9 @@ namespace VehicleBookingAPI.Models.Entities
 
         public bool IsAvailable { get; set; } = true;
 
+        [MaxLength(int.MaxValue)]
+        public string? ImageData { get; set; }
+
         [ForeignKey("OwnerId")]
         public User Owner { get; set; } = null!;
 

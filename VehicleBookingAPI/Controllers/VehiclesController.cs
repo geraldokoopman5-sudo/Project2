@@ -22,6 +22,13 @@ namespace VehicleBookingAPI.Controllers
             return Ok(vehicles);
         }
 
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllVehicles()
+        {
+            var vehicles = await _vehicleService.GetAllVehiclesAsync();
+            return Ok(vehicles);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetVehicleById(Guid id)
         {

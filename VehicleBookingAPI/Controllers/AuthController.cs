@@ -36,7 +36,7 @@ namespace VehicleBookingAPI.Controllers
             if (user == null)
                 return Unauthorized(new { message = "Invalid email or password." });
 
-            return Ok(new { message = "Login successful.", userId = user.Id, role = user.Role });
+            return Ok(new { message = "Login successful.", userId = user.Id, role = user.Role, name = user.Name });
         }
     }
 }

@@ -16,6 +16,15 @@ namespace VehicleBookingAPI.Services
             _context = context;
         }
 
+        public async Task<List<VehicleResponseDto>> GetAllVehiclesAsync()
+        {
+            var vehicles = await _context.Vehicles
+                .Include(v => v.Owner)
+                .ToListAsync();
+
+            return vehicles.Select(MapToResponseDto).ToList();
+        }
+
         public async Task<List<VehicleResponseDto>> GetAvailableVehiclesAsync()
         {
             var vehicles = await _context.Vehicles
@@ -46,7 +55,8 @@ namespace VehicleBookingAPI.Services
                 Year = dto.Year,
                 Category = dto.Category,
                 DailyRate = dto.DailyRate,
-                IsAvailable = true
+                IsAvailable = true,
+                ImageData = dto.ImageData
             };
 
             _context.Vehicles.Add(vehicle);
@@ -66,6 +76,8 @@ namespace VehicleBookingAPI.Services
             vehicle.Category = dto.Category;
             vehicle.DailyRate = dto.DailyRate;
             vehicle.IsAvailable = dto.IsAvailable;
+            if (!string.IsNullOrEmpty(dto.ImageData))
+                vehicle.ImageData = dto.ImageData;
 
             await _context.SaveChangesAsync();
             return true;
@@ -101,7 +113,8 @@ namespace VehicleBookingAPI.Services
                 Year = v.Year,
                 Category = v.Category,
                 DailyRate = v.DailyRate,
-                IsAvailable = v.IsAvailable
+                IsAvailable = v.IsAvailable,
+                ImageData = v.ImageData
             };
         }
     }

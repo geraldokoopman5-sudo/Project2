@@ -25,5 +25,7 @@ namespace VehicleBookingAPI.DTOs.Vehicle
         [Column(TypeName = "decimal(10,2)")]
         [Range(0.01, double.MaxValue, ErrorMessage = "DailyRate must be greater than zero")]
         public decimal DailyRate { get; set; }
+
+        public string? ImageData { get; set; }
     }
 }

@@ -110,6 +110,10 @@ namespace VehicleBookingAPI.Migrations
                     b.Property<decimal>("DailyRate")
                         .HasColumnType("decimal(10,2)");
 
+                    b.Property<string>("ImageData")
+                        .HasMaxLength(2147483647)
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
 
