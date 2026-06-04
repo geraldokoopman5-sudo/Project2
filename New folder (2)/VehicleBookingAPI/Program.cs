@@ -43,19 +43,10 @@ namespace VehicleBookingAPI
                 options.AddPolicy("AllowAll", policy =>
                 {
                     policy.AllowAnyOrigin()
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
                 });
-
-                options.AddPolicy("AllowFrontend", policy =>
-                {
-                    policy.WithOrigins(
-                              Environment.GetEnvironmentVariable("FRONTEND_URL")
-                              ?? "https://your-frontend.onrender.com")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
                 });
-            });
 
             var app = builder.Build();
 
@@ -69,7 +60,7 @@ namespace VehicleBookingAPI
             app.UseSwagger();
             app.UseSwaggerUI();
 
-            app.UseCors("AllowFrontend");
+            
             app.UseCors("AllowAll");
 
             app.UseMiddleware<RequestLoggingMiddleware>();
