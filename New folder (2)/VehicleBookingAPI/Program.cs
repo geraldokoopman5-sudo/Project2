@@ -47,7 +47,7 @@ namespace VehicleBookingAPI
                 app.UseSwaggerUI();
             }
 
-            // ✅ CORS MUST BE FIRST - before all other middleware
+        
             app.UseCors("AllowAll");
 
             app.UseMiddleware<RequestLoggingMiddleware>();
