@@ -17,13 +17,22 @@ namespace VehicleBookingAPI
             builder.Services.AddSwaggerGen();
 
            
-            var connectionString =
-                Environment.GetEnvironmentVariable("postgresql://bookingdb_fhw1_user:YmU6NYtJ8EgWhhQlswvsZwxKIyOwyBwj@dpg-d8gl1il8nd3s7394eqag-a/bookingdb_fhw1")
-                ?? builder.Configuration.GetConnectionString("DefaultConnection");
+            var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+            string connectionString;
+
+            if (databaseUrl != null)
+            {
+                var uri = new Uri(databaseUrl);
+                var userInfo = uri.UserInfo.Split(':');
+                connectionString = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
+            }
+            else
+            {
+                connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
+            }
 
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(connectionString));
-
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IBookingService, BookingService>();
             builder.Services.AddScoped<IVehicleService, VehicleService>();
