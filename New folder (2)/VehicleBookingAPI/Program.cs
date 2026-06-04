@@ -16,20 +16,24 @@ namespace VehicleBookingAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-           
             var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
             string connectionString;
 
-           if (databaseUrl != null)
-        {
-            var uri = new Uri(databaseUrl);
-            var userInfo = uri.UserInfo.Split(':');
-            var port = uri.Port > 0 ? uri.Port : 5432;
-            connectionString = $"Host={uri.Host};Port={port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
-}
+            if (databaseUrl != null)
+            {
+                var uri = new Uri(databaseUrl);
+                var userInfo = uri.UserInfo.Split(':');
+                var port = uri.Port > 0 ? uri.Port : 5432;
+                connectionString = $"Host={uri.Host};Port={port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
+            }
+            else
+            {
+                connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
+            }
 
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(connectionString));
+
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IBookingService, BookingService>();
             builder.Services.AddScoped<IVehicleService, VehicleService>();
@@ -55,7 +59,6 @@ namespace VehicleBookingAPI
 
             var app = builder.Build();
 
-         
             using (var scope = app.Services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
