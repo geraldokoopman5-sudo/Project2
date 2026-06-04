@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const api = axios.create({ baseURL: "http://localhost:5033/api" });
-
+const api = axios.create({ baseURL: "https://project2-xjfq.onrender.com/api" });
 export const login = (email, password) => api.post("/auth/login", { email, password });
 export const register = (dto) => api.post("/auth/register", dto);
 
