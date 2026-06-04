@@ -16,8 +16,13 @@ namespace VehicleBookingAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+           
+            var connectionString =
+                Environment.GetEnvironmentVariable("DATABASE_URL")
+                ?? builder.Configuration.GetConnectionString("DefaultConnection");
+
             builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(connectionString));
 
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IBookingService, BookingService>();
@@ -31,23 +36,31 @@ namespace VehicleBookingAPI
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                 });
+
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy.WithOrigins(
+                              Environment.GetEnvironmentVariable("FRONTEND_URL")
+                              ?? "https://your-frontend.onrender.com")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
             });
 
             var app = builder.Build();
 
+         
             using (var scope = app.Services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                db.Database.Migrate();
                 SeedData.Initialize(db);
             }
 
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
-        
+            app.UseCors("AllowFrontend");
             app.UseCors("AllowAll");
 
             app.UseMiddleware<RequestLoggingMiddleware>();
