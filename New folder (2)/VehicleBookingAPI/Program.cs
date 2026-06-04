@@ -20,16 +20,13 @@ namespace VehicleBookingAPI
             var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
             string connectionString;
 
-            if (databaseUrl != null)
-            {
-                var uri = new Uri(databaseUrl);
-                var userInfo = uri.UserInfo.Split(':');
-                connectionString = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
-            }
-            else
-            {
-                connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
-            }
+           if (databaseUrl != null)
+        {
+            var uri = new Uri(databaseUrl);
+            var userInfo = uri.UserInfo.Split(':');
+            var port = uri.Port > 0 ? uri.Port : 5432;
+            connectionString = $"Host={uri.Host};Port={port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
+}
 
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(connectionString));
