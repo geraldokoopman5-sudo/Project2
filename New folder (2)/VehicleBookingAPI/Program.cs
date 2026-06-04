@@ -18,7 +18,7 @@ namespace VehicleBookingAPI
 
            
             var connectionString =
-                Environment.GetEnvironmentVariable("DATABASE_URL")
+                Environment.GetEnvironmentVariable("postgresql://bookingdb_fhw1_user:YmU6NYtJ8EgWhhQlswvsZwxKIyOwyBwj@dpg-d8gl1il8nd3s7394eqag-a/bookingdb_fhw1")
                 ?? builder.Configuration.GetConnectionString("DefaultConnection");
 
             builder.Services.AddDbContext<AppDbContext>(options =>
