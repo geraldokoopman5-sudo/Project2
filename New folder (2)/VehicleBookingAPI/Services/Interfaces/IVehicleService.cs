@@ -10,5 +10,7 @@ namespace VehicleBookingAPI.Services.Interfaces
         Task<VehicleResponseDto> AddVehicleAsync(CreateVehicleDto dto);
         Task<bool> UpdateVehicleAsync(Guid id, UpdateVehicleDto dto);
         Task<bool> DeleteVehicleAsync(Guid id);
+        Task<bool> ApproveVehicleAsync(Guid id);
+        Task<bool> RejectVehicleAsync(Guid id);
     }
 }

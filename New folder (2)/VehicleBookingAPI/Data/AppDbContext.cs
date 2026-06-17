@@ -34,6 +34,11 @@ namespace VehicleBookingAPI.Data
                 .Property(b => b.Status)
                 .HasConversion<string>();
 
+            modelBuilder.Entity<Vehicle>()
+                .Property(v => v.ApprovalStatus)
+                .HasConversion<string>()
+                .HasDefaultValue(VehicleApprovalStatus.Approved);
+
             modelBuilder.Entity<User>()
                 .Property(u => u.Id)
                 .ValueGeneratedOnAdd();

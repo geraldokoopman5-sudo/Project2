@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using VehicleBookingAPI.Models.Enums;
 
 namespace VehicleBookingAPI.Models.Entities
 {
@@ -19,7 +20,6 @@ namespace VehicleBookingAPI.Models.Entities
         [Required]
         public string Model { get; set; } = string.Empty;
 
-        // FIX: was DateTime, Year is a number not a date
         public int Year { get; set; }
 
         [MaxLength(50)]
@@ -36,6 +36,7 @@ namespace VehicleBookingAPI.Models.Entities
         [ForeignKey("OwnerId")]
         public User Owner { get; set; } = null!;
 
+        public VehicleApprovalStatus ApprovalStatus { get; set } = VehicleApprovalStatus.Pending;
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
     }
 }

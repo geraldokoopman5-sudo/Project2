@@ -66,5 +66,21 @@ namespace VehicleBookingAPI.Controllers
                 return Conflict(new { message = ex.Message });
             }
         }
+
+        [HttpPut("{id}/approve")]
+        public async Task<IActionResult> ApproveVehicle(Guid id)
+        {
+            var success = await _vehicleService.ApproveVehicleAsync(id);
+            if (!success) return NotFound("Vehicle not found.");
+            return Ok(new { message = "Vehicle approved." });
+        }
+
+        [HttpPut("{id}/reject")]
+        public async Task<IActionResult> RejectVehicle(Guid id)
+        {
+            var success = await _vehicleService.RejectVehicleAsync(id);
+            if (!success) return NotFound("Vehicle not found.");
+            return Ok(new { message = "Vehicle rejected." });
+        }
     }
 }

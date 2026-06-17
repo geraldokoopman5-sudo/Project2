@@ -39,6 +39,12 @@ namespace VehicleBookingAPI.Services
                 dto.EndDate > b.StartDate &&
                 b.Status != BookingStatus.Cancelled);
 
+            if (!vehicle.IsAvailable)
+                throw new InvalidOperationException("Vehicle is not available for booking.");
+
+            if (vehicle.ApprovalStatus != VehicleApprovalStatus.Approved)
+                throw new InvalidOperationException("Vehicle is not approved for booking yet.");
+
             if (overlapExists)
                 throw new InvalidOperationException("Vehicle is already booked for the selected dates.");
 

@@ -1,4 +1,6 @@
-﻿namespace VehicleBookingAPI.DTOs.Vehicle
+﻿using VehicleBookingAPI.Models.Enums;
+
+namespace VehicleBookingAPI.DTOs.Vehicle
 {
     public class VehicleResponseDto
     {
@@ -12,5 +14,6 @@
         public decimal DailyRate { get; set; }
         public bool IsAvailable { get; set; }
         public string? ImageData { get; set; }
+        public VehicleApprovalStatus ApprovalStatus { get; set; }
     }
 }

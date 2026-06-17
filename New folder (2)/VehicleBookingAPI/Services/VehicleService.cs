@@ -25,11 +25,20 @@ namespace VehicleBookingAPI.Services
             return vehicles.Select(MapToResponseDto).ToList();
         }
 
+        //public async Task<List<VehicleResponseDto>> GetAvailableVehiclesAsync()
+        //{
+        //    var vehicles = await _context.Vehicles
+        //        .Include(v => v.Owner)
+        //        .Where(v => v.IsAvailable)
+        //        .ToListAsync();
+
+        //    return vehicles.Select(MapToResponseDto).ToList();
+        //}
         public async Task<List<VehicleResponseDto>> GetAvailableVehiclesAsync()
         {
             var vehicles = await _context.Vehicles
                 .Include(v => v.Owner)
-                .Where(v => v.IsAvailable)
+                .Where(v => v.IsAvailable && v.ApprovalStatus == VehicleApprovalStatus.Approved)
                 .ToListAsync();
 
             return vehicles.Select(MapToResponseDto).ToList();
@@ -56,7 +65,8 @@ namespace VehicleBookingAPI.Services
                 Category = dto.Category,
                 DailyRate = dto.DailyRate,
                 IsAvailable = true,
-                ImageData = dto.ImageData
+                ImageData = dto.ImageData,
+                ApprovalStatus = VehicleApprovalStatus.Pending
             };
 
             _context.Vehicles.Add(vehicle);
@@ -101,6 +111,26 @@ namespace VehicleBookingAPI.Services
             return true;
         }
 
+        public async Task<bool> ApproveVehicleAsync(Guid id)
+        {
+            var vehicle = await _context.Vehicles.FindAsync(id);
+            if (vehicle == null) return false;
+
+            vehicle.ApprovalStatus = VehicleApprovalStatus.Approved;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> RejectVehicleAsync(Guid id)
+        {
+            var vehicle = await _context.Vehicles.FindAsync(id);
+            if (vehicle == null) return false;
+
+            vehicle.ApprovalStatus = VehicleApprovalStatus.Rejected;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
         private static VehicleResponseDto MapToResponseDto(Vehicle v)
         {
             return new VehicleResponseDto
@@ -114,7 +144,8 @@ namespace VehicleBookingAPI.Services
                 Category = v.Category,
                 DailyRate = v.DailyRate,
                 IsAvailable = v.IsAvailable,
-                ImageData = v.ImageData
+                ImageData = v.ImageData,
+                ApprovalStatus = v.ApprovalStatus
             };
         }
     }
