@@ -82,7 +82,6 @@ namespace VehicleBookingAPI.Services
             }).ToList();
         }
 
-        // FIX: int → Guid
         public async Task<BookingResponseDto?> GetBookingByIdAsync(Guid id)
         {
             var booking = await _context.Bookings
@@ -96,7 +95,6 @@ namespace VehicleBookingAPI.Services
             return MapToResponseDto(booking, booking.Vehicle, days);
         }
 
-        // FIX: int → Guid
         public async Task<bool> UpdateBookingStatusAsync(Guid id, BookingStatus status)
         {
             var booking = await _context.Bookings.FindAsync(id);
@@ -107,7 +105,6 @@ namespace VehicleBookingAPI.Services
             return true;
         }
 
-        // FIX: int → Guid
         public async Task<bool> DeleteBookingAsync(Guid id)
         {
             var booking = await _context.Bookings.FindAsync(id);

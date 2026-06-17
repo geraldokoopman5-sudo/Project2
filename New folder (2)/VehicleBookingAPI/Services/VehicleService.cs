@@ -98,15 +98,21 @@ namespace VehicleBookingAPI.Services
             var vehicle = await _context.Vehicles.FindAsync(id);
             if (vehicle == null) return false;
 
-            bool hasActiveBookings = await _context.Bookings.AnyAsync(b =>
-                b.VehicleId == id &&
-                (b.Status == BookingStatus.Pending || b.Status == BookingStatus.Confirmed));
+            var relatedBookings = await _context.Bookings
+                .Where(b => b.VehicleId == id)
+                .ToListAsync();
 
-            if (hasActiveBookings)
+            bool hasActiveBooking = relatedBookings.Any(b => b.Status == BookingStatus.Confirmed);
+            if (hasActiveBooking)
                 throw new InvalidOperationException(
-                    "Cannot delete a vehicle that has pending or confirmed bookings.");
+                    "Cannot delete a vehicle with an active (confirmed) booking. It must be completed or cancelled first.");
 
+            foreach (var booking in relatedBookings.Where(b => b.Status == BookingStatus.Pending))
+                booking.Status = BookingStatus.Cancelled;
+
+            _context.Bookings.RemoveRange(relatedBookings);
             _context.Vehicles.Remove(vehicle);
+
             await _context.SaveChangesAsync();
             return true;
         }

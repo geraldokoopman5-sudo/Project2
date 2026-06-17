@@ -40,7 +40,7 @@ namespace VehicleBookingAPI.Services
 
         public async Task<UserResponseDto?> Login(LoginDto dto)
         {
-            // TODO: replace with BCrypt hash comparison
+           
             var user = await _context.Users
                 .FirstOrDefaultAsync(u => u.Email == dto.Email && u.Password == dto.Password);
 
@@ -53,7 +53,7 @@ namespace VehicleBookingAPI.Services
             return users.Select(MapToResponseDto).ToList();
         }
 
-        // FIX: int → Guid
+       
         public async Task<UserResponseDto?> GetUserById(Guid id)
         {
             var user = await _context.Users.FindAsync(id);
