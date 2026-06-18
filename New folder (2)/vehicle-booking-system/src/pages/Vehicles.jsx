@@ -22,7 +22,7 @@ function Vehicles({ open, setOpen }) {
     getVehicles().then(res => setVehicles(res.data)).catch(() => setError("Failed to load vehicles.")).finally(() => setLoading(false));
   }, []);
 
-  const calcDays = () => startDate && endDate ? Math.ceil((new Date(endDate) - new Date(startDate)) / 86400000) + 1 : 0;
+  const calcDays = () => startDate && endDate ? Math.ceil((new Date(endDate) - new Date(startDate)) / 86400000) : 0;
 
   const submitBooking = async (e) => {
     e.preventDefault(); setBookError(""); setBookSuccess("");
