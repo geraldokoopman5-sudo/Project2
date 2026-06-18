@@ -16,8 +16,7 @@ function Sidebar() {
           <li><NavLink to="/bookings" className={cls}><span className="side-icon">◻</span>My Bookings</NavLink></li>
         </>}
         {role === 2 && <>
-          <li><NavLink to="/vehicles" className={cls}><span className="side-icon">◻</span>Vehicles</NavLink></li>
-          <li><NavLink to="/bookings" className={cls}><span className="side-icon">◻</span>Bookings</NavLink></li>
+        
           <li><NavLink to="/admin" className={cls}><span className="side-icon">◻</span>Admin Panel</NavLink></li>
         </>}
       </ul>
